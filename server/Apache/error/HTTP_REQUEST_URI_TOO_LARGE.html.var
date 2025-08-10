@@ -1,19 +1,18 @@
 Content-language: cs
-Content-type: text/html; charset=ISO-8859-2
+Content-type: text/html; charset=UTF-8
 Body:----------cs--
 <!--#set var="CONTENT_LANGUAGE" value="cs"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
---><!--#set var="TITLE" value="Po�adovan� URI je p��li� velk�!"
+--><!--#set var="TITLE" value="Požadované URI je příliš velké!"
 --><!--#include virtual="include/top.html" -->
 
-    D�lka po�adovan�ho URL p�esahuje kapacitn� limit tohoto
-    serveru. Po�adavek nem��e b�t zpracov�n.
+    Délka požadovaného URL přesahuje kapacitní limit tohoto
+    serveru. Požadavek nemůže být zpracován.
    
 <!--#include virtual="include/bottom.html" -->
 ----------cs--
 
 Content-language: de
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------de--
 <!--#set var="CONTENT_LANGUAGE" value="de"
 --><!--#set var="TITLE" value="&Uuml;bergebener URI zu gro&szlig;!"
@@ -27,7 +26,7 @@ Body:----------de--
 ----------de--
 
 Content-language: en
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------en--
 <!--#set var="TITLE" value="Submitted URI too large!"
 --><!--#include virtual="include/top.html" -->
@@ -39,21 +38,19 @@ Body:----------en--
 ----------en--
 
 Content-language: es
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html
 Body:----------es--
-<!--#set var="CONTENT_LANGUAGE" value="es"
---><!--#set var="TITLE" value="&iexcl;Direcci&oacute;n suministrada demasiado larga!"
---><!--#include virtual="include/top.html" -->
+<!--#set var="TITLE" value="&iexcl;El URI enviado es demasiado largo!" -->
+<!--#include virtual="include/top.html" -->
 
-	Su solicitud no puede procesarse debido a que la
-	longitud del enlace excede la capacidad l&iacute;mite del 
-	servidor. 
-    
+   La longitud de la URL solicitada excede el l&iacute;mite de
+   capacidad para este servidor. No se puede procesar la solicitud.
+
 <!--#include virtual="include/bottom.html" -->
 ----------es--
 
 Content-language: fr
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------fr--
 <!--#set var="CONTENT_LANGUAGE" value="fr"
 --><!--#set var="TITLE" value="L'URI demandee est trop longue!"
@@ -67,7 +64,7 @@ Body:----------fr--
 ----------fr--
 
 Content-language: ga
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------ga--
 <!--#set var="TITLE" value="URI r&oacute;mh&oacute;r cuirthe isteach!"
 --><!--#include virtual="include/top.html" -->
@@ -80,7 +77,7 @@ Body:----------ga--
 ----------ga--
 
 Content-language: it
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------it--
 <!--#set var="CONTENT_LANGUAGE" value="it"
 --><!--#set var="TITLE" value="URI troppo lungo!"
@@ -94,34 +91,32 @@ Body:----------it--
 ----------it--
 
 Content-language: ja
-Content-type: text/html; charset=ISO-2022-JP
+Content-type: text/html; charset=UTF-8
 Body:----------ja--
 <!--#set var="CONTENT_LANGUAGE" value="ja"
---><!--#set var="CHARACTER_ENCODING" value="iso-2022-jp"
 --><!--#set var="TITLE" value="Submitted URI too large!"
 --><!--#include virtual="include/top.html" -->
 
-    $B%j%/%(%9%H$N(B URL $B$ND9$5$,!"07$($kD9$5$rD6$($F$$$^$9!#(B
-    $B%j%/%(%9%H$N=hM}$rB3$1$i$l$^$;$s!#(B
+    リクエストの URL の長さが、扱える長さを超えています。
+    リクエストの処理を続けられません。
    
 <!--#include virtual="include/bottom.html" -->
 ----------ja--
 
 Content-language: ko
-Content-type: text/html; charset=EUC-KR
+Content-type: text/html; charset=UTF-8
 Body:----------ko--
 <!--#set var="CONTENT_LANGUAGE" value="ko"
---><!--#set var="TITLE" value="�ʹ� �� URI!"
---><!--#set var="CHARACTER_ENCODING" value="EUC-KR"
+--><!--#set var="TITLE" value="너무 긴 URI!"
 --><!--#include virtual="include/top.html" -->
 
-    ��û�� URL�� �ʹ� �� �� ������ ó���� �� �����ϴ�.
+    요청한 URL이 너무 길어서 이 서버가 처리할 수 없습니다.
 
 <!--#include virtual="include/bottom.html" -->
 ----------ko--
 
 Content-language: nl
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------nl--
 <!--#set var="CONTENT_LANGUAGE" value="nl"
 --><!--#set var="TITLE" value="Aangeboden URI te groot!"
@@ -133,22 +128,35 @@ Body:----------nl--
 <!--#include virtual="include/bottom.html" -->
 ----------nl--
 
-Content-language: pl
-Content-type: text/html; charset=ISO-8859-2
-Body:----------pl--
-<!--#set var="CONTENT_LANGUAGE" value="pl"
---><!--#set var="TITLE" value="Zbyt d�ugie URI!"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
+Content-language: nb
+Content-type: text/html; charset=UTF-8
+Body:----------nb--
+<!--#set var="CONTENT_LANGUAGE" value="nb"
+--><!--#set var="TITLE" value="Forespurt URI for stor!"
 --><!--#include virtual="include/top.html" -->
 
-    D�ugo�� ��danego URLa przekracza limit ustanowiony dla tego
-    serwera. ��danie nie mo�e zosta� zrealizowane.
+    Lengden på adressen som etterspurtes overskrider
+    kapasitetsgrensen for denne serveren. Forespørselen kan
+    ikke prosesseres.
+
+<!--#include virtual="include/bottom.html" -->
+----------nb--
+
+Content-language: pl
+Content-type: text/html; charset=UTF-8
+Body:----------pl--
+<!--#set var="CONTENT_LANGUAGE" value="pl"
+--><!--#set var="TITLE" value="Zbyt d&#322;ugie URI!"
+--><!--#include virtual="include/top.html" -->
+
+    D&#322;ugo&#347;&#263; &#380;&#261;danego URL-a przekracza limit ustanowiony dla tego
+    serwera. &#379;&#261;danie nie mo&#380;e zosta&#263; zrealizowane.
 
 <!--#include virtual="include/bottom.html" -->
 ----------pl--
 
 Content-language: pt-br
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:-------pt-br--
 <!--#set var="CONTENT_LANGUAGE" value="pt-br"
 --><!--#set var="TITLE" value="URL excede limite!"
@@ -161,8 +169,20 @@ Body:-------pt-br--
 <!--#include virtual="include/bottom.html" -->
 -------pt-br--
 
-Content-language: ro
+Content-language: pt
 Content-type: text/html; charset=ISO-8859-1
+Body:----------pt--
+<!--#set var="TITLE" value="URI demasiado grande!"
+--><!--#include virtual="include/top.html" -->
+
+	O tamanho do URL pedido excede o limite da capacidade deste
+	servidor. O pedido n&atilde;o pode ser processado.
+
+<!--#include virtual="include/bottom.html" -->
+----------pt--
+
+Content-language: ro
+Content-type: text/html; charset=UTF-8
 Body:----------ro--
 <!--#set var="CONTENT_LANGUAGE" value="ro"
 --><!--#set var="TITLE" value="URL-ul submis este prea mare!"
@@ -174,22 +194,33 @@ Body:----------ro--
 <!--#include virtual="include/bottom.html" -->
 ----------ro--
 
-Content-language: sr
-Content-type: text/html; charset=ISO-8859-5
-Body:----------sr--
-<!--#set var="CONTENT_LANGUAGE" value="sr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-5"
---><!--#set var="TITLE" value="������� ��� �� ��������!"
+Content-language: ru
+Content-type: text/html; charset=UTF-8
+Body:----------ru--
+<!--#set var="TITLE" value="URI слишком длинный!"
 --><!--#include virtual="include/top.html" -->
 
-    ������ ���������� ���-� ��������� ���������� ����������
-    ���� �������. ������ �� ���� ���� �������.
+    Длина запрашиваемого URL превышает максимально допустимую
+    сервером. Запрос не может быть обработан.
+
+<!--#include virtual="include/bottom.html" -->
+----------ru--
+
+Content-language: sr
+Content-type: text/html; charset=UTF-8
+Body:----------sr--
+<!--#set var="CONTENT_LANGUAGE" value="sr"
+--><!--#set var="TITLE" value="Послати УРИ је превелик!"
+--><!--#include virtual="include/top.html" -->
+
+    Дужина захтеваног УРЛ-а премашује ограничења могућности
+    овог сервера. Захтев не може бити обрађен.
 
 <!--#include virtual="include/bottom.html" -->
 ----------sr--
 
 Content-language: sv
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------sv--
 <!--#set var="CONTENT_LANGUAGE" value="sv"
 --><!--#set var="TITLE" value="Efterfr&aring;gad URI f&ouml;r stor!"
@@ -203,15 +234,38 @@ Body:----------sv--
 ----------sv--
 
 Content-language: tr
-Content-type: text/html; charset=ISO-8859-9
+Content-type: text/html; charset=UTF-8
 Body:----------tr--
 <!--#set var="CONTENT_LANGUAGE" value="tr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-9"
---><!--#set var="TITLE" value="Submitted URI too large!"
+--><!--#set var="TITLE" value="Gönderilen URI çok büyük!"
 --><!--#include virtual="include/top.html" -->
 
-    Talep edilen URL'nin uzunlu&#287;u, sunucunun kapasite limitlerini a&#351;&#305;yor.
-    Talep i&#351;lenemiyor.
+    Talep edilen URI'nin uzunluğu, sunucunun sınırlarını
+    aştığından istek yerine getirilemiyor.
 
 <!--#include virtual="include/bottom.html" -->
 ----------tr--
+
+Content-language: zh-cn
+Content-type: text/html; charset=UTF-8
+Body:----------zh-cn--
+<!--#set var="CONTENT_LANGUAGE" value="zh-cn"
+--><!--#set var="TITLE" value="提交的 URI 过长！"
+--><!--#include virtual="include/top.html" -->
+
+    请求 URL 的长度超出了服务器的长度限制。该请求无法处理。
+   
+<!--#include virtual="include/bottom.html" -->
+----------zh-cn--
+
+Content-language: zh-tw
+Content-type: text/html; charset=UTF-8
+Body:----------zh-tw--
+<!--#set var="CONTENT_LANGUAGE" value="zh-tw"
+--><!--#set var="TITLE" value="提交的 URI 過長！"
+--><!--#include virtual="include/top.html" -->
+
+    請求 URL 的長度超出了伺服器的長度限制。該請求無法處理。
+   
+<!--#include virtual="include/bottom.html" -->
+----------zh-tw--

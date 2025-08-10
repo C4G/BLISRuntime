@@ -1,26 +1,25 @@
 Content-language: cs
-Content-type: text/html; charset=ISO-8859-2
+Content-type: text/html; charset=UTF-8
 Body:----------cs--
 <!--#set var="CONTENT_LANGUAGE" value="cs"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
---><!--#set var="TITLE" value="Po�adov�na autentizace!"
+--><!--#set var="TITLE" value="Požadována autentizace!"
 --><!--#include virtual="include/top.html" -->
 
-    Server nemohl ov��it, �e jste autorizov�n(a) k&nbsp;p��stupu
+    Server nemohl ověřit, že jste autorizován(a) k&nbsp;přístupu
     k&nbsp;URL "<!--#echo encoding="url" var="REDIRECT_URL" -->".
-    Bu� jste dodal(a) neplatn� pov��en� (nap�. chybn� heslo) nebo V�
-    prohl��e� neum� dodat po�adovan� ov��en�.
+    Buď jste dodal(a) neplatné pověření (např. chybné heslo) nebo Váš
+    prohlížeč neumí dodat požadované ověření.
 
   <!--#include virtual="include/spacer.html" -->
 
-    V&nbsp;p��pad�, �e sm�te po�adovat tento dokument, zkontrolujte, pros�m,
-    Va�i u�ivatelskou identifikaci a heslo a zkuste to znovu.
+    V&nbsp;případě, že smíte požadovat tento dokument, zkontrolujte, prosím,
+    Vaši uživatelskou identifikaci a heslo a zkuste to znovu.
 
 <!--#include virtual="include/bottom.html" -->
 ----------cs--
 
 Content-language: de
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------de--
 <!--#set var="CONTENT_LANGUAGE" value="de"
 --><!--#set var="TITLE" value="Authentisierung fehlgeschlagen!"
@@ -42,7 +41,7 @@ Body:----------de--
 ----------de--
 
 Content-language: en
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------en--
 <!--#set var="TITLE" value="Authentication required!"
 --><!--#include virtual="include/top.html" -->
@@ -61,30 +60,28 @@ Body:----------en--
 ----------en--
 
 Content-language: es
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html
 Body:----------es--
-<!--#set var="CONTENT_LANGUAGE" value="es"
---><!--#set var="TITLE" value="&iexcl;Autentificaci&oacute;n requerida!"
---><!--#include virtual="include/top.html" -->
+<!--#set var="TITLE" value="&iexcl;Autentificaci&oacute;n requerida!" -->
+<!--#include virtual="include/top.html" -->
 
-    El servidor no puede certificar que usted este autorizado
-    para acceder al enlace "<!--#echo encoding="url" var="REDIRECT_URL" -->".
-    Usted pudo suministrar informaci&oacute;n err&oacute;nea accidentalmente
-    (ejem. una contrase&ntilde;a inv&aacute;lida) o, el navegador no sabe 
-    como suministrar la informaci&oacute;n requerida.
+    El servidor no puede certificar que usted est&eacute; autorizado
+    para acceder a la URL "<!--#echo encoding="url" var="REDIRECT_URL" -->".
+    Ha podido suministrar informaci&oacute;n incorrecta (ej.
+    contrase&ntilde;a no v&aacute;lida) o el navegador no sabe
+    c&oacute;mo suministrar la informaci&oacute;n requerida.
 
   <!--#include virtual="include/spacer.html" -->
 
-    En caso de que a usted le este permitido el uso del
-    documento requerido, le solicitamos de la manera m&aacute;s atenta
-    que por favor vuelva a intentar la operaci&oacute;n suministrando
-    nuevamente su identificador y su contrase&ntilde;a.
+    En caso de que usted tenga permiso para acceder al documento,
+    por favor verifique su nombre de usuario y contrase&ntilde;a y 
+    vu&eacute;lvalo a intentar.
 
 <!--#include virtual="include/bottom.html" -->
 ----------es--
 
 Content-language: fr
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------fr--
 <!--#set var="CONTENT_LANGUAGE" value="fr"
 --><!--#set var="TITLE" value="Autorisation requise!"
@@ -100,7 +97,7 @@ Body:----------fr--
 
   <!--#include virtual="include/spacer.html" -->
 
-    Si vous &ecirc;tez autoris&eacute; &agrave; requ&eacute;rir le document,
+    Si vous &ecirc;tes autoris&eacute; &agrave; requ&eacute;rir le document,
     veuillez v&eacute;rifier votre nom d'utilisateur et votre mot de passe
     et r&eacute;essayer.
 
@@ -108,7 +105,7 @@ Body:----------fr--
 ----------fr--
 
 Content-language: ga
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------ga--
 <!--#set var="TITLE" value="Is g&aacute; f&iacute;ordheimhni&uacute;!"
 --><!--#include virtual="include/top.html" -->
@@ -132,7 +129,7 @@ Body:----------ga--
 ----------ga--
 
 Content-language: it
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------it--
 <!--#set var="CONTENT_LANGUAGE" value="it"
 --><!--#set var="TITLE" value="Autorizzazione necessaria!"
@@ -153,49 +150,47 @@ Body:----------it--
 ----------it--
 
 Content-language: ja
-Content-type: text/html; charset=ISO-2022-JP
+Content-type: text/html; charset=UTF-8
 Body:----------ja--
 <!--#set var="CONTENT_LANGUAGE" value="ja"
---><!--#set var="CHARACTER_ENCODING" value="iso-2022-jp"
 --><!--#set var="TITLE" value="Authentication required!"
 --><!--#include virtual="include/top.html" -->
 
     URL "<!--#echo encoding="url" var="REDIRECT_URL" -->"
-    $B$X$N%"%/%;%98"8B$,$"$k$3$H$r3NG'$G$-$^$;$s$G$7$?!#(B
-    $B4V0c$C$?;q3J>pJs(B ($BNc$($P!"8m$C$?%Q%9%o!<%I(B) $B$rF~NO$7$?$+!"(B
-    $B%V%i%&%6$,I,MW$J;q3J>pJs$rAw?.$9$kJ}K!$rM}2r$7$F$$$J$$$+$G$9!#(B
+    へのアクセス権限があることを確認できませんでした。
+    間違った資格情報 (例えば、誤ったパスワード) を入力したか、
+    ブラウザが必要な資格情報を送信する方法を理解していないかです。
 
   <!--#include virtual="include/spacer.html" -->
 
-    $B%I%-%e%a%s%H$rMW5a$G$-$kH&$G$"$k>l9g$O!"(B
-    $B%f!<%6(B ID $B$H%Q%9%o!<%I$r:F3NG'$7$F2<$5$$!#(B
+    ドキュメントを要求できる筈である場合は、
+    ユーザ ID とパスワードを再確認して下さい。
 
 <!--#include virtual="include/bottom.html" -->
 ----------ja--
 
 Content-language: ko
-Content-type: text/html; charset=EUC-KR
+Content-type: text/html; charset=UTF-8
 Body:----------ko--
 <!--#set var="CONTENT_LANGUAGE" value="ko"
---><!--#set var="TITLE" value="���� �ʿ�!"
---><!--#set var="CHARACTER_ENCODING" value="EUC-KR"
+--><!--#set var="TITLE" value="인증 필요!"
 --><!--#include virtual="include/top.html" -->
 
-    �� ������ "<!--#echo encoding="url" var="REDIRECT_URL" -->" URL��
-    ������ �� �ִ� ������ �ִ��� Ȯ������ ���߽��ϴ�.
-    �߸��� ���� ����(����, �߸��� ��ȣ)�� ���°ų� �ƴϸ�
-    ����Ͻô� �������� �ʿ��� ���� ������ ��� �������� �𸣴� ���Դϴ�.
+    이 서버가 "<!--#echo encoding="url" var="REDIRECT_URL" -->" URL을
+    접근할 수 있는 권한이 있는지 확인하지 못했습니다.
+    잘못된 인증 정보(가령, 잘못된 암호)를 보냈거나 아니면
+    사용하시는 브라우저가 필요한 인증 정보를 어떻게 보내는지 모르는 것입니다.
 
   <!--#include virtual="include/spacer.html" -->
 
-    �� ������ ����� �� �ֵ��� �㰡�� �޾Ҵµ��� �̷��ٸ�,
-    ����� ID�� ��ȣ�� Ȯ���Ͻð� �ٽ� �õ��Ͻñ� �ٶ��ϴ�.
+    이 문서를 사용할 수 있도록 허가를 받았는데도 이런다면,
+    사용자 ID와 암호를 확인하시고 다시 시도하시기 바랍니다.
 
 <!--#include virtual="include/bottom.html" -->
 ----------ko--
 
 Content-language: nl
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------nl--
 <!--#set var="CONTENT_LANGUAGE" value="nl"
 --><!--#set var="TITLE" value="Authenticatie nodig!"
@@ -214,29 +209,49 @@ Body:----------nl--
 <!--#include virtual="include/bottom.html" -->
 ----------nl--
 
-Content-language: pl
-Content-type: text/html; charset=ISO-8859-2
-Body:----------pl--
-<!--#set var="CONTENT_LANGUAGE" value="pl"
---><!--#set var="TITLE" value="Wymagana autoryzacja!"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
+Content-language: nb
+Content-type: text/html; charset=UTF-8
+Body:----------nb--
+<!--#set var="CONTENT_LANGUAGE" value="nb"
+--><!--#set var="TITLE" value="Autentisering kreves!"
 --><!--#include virtual="include/top.html" -->
 
-    Serwer nie mo�e zweryfikowa�, �e masz uprawnienia dost�pu do
-    URLa "<!--#echo encoding="url" var="REDIRECT_URL" -->".
-    Nie poda�e� prawid�owych danych autoryzacyjnych (np. has�a),
-    lub twoja przegl�darka nie potrafi ich przes�a�.
+    Serveren kunne ikke verifisere at du har tillatelse til å besøke
+    adressen "<!--#echo encoding="url" var="REDIRECT_URL" -->".  Enten
+    oppga du feil opplysninger (f.eks. feil passord) eller så støtter
+    ikke din nettleser dette autentiseringsystemet.
 
   <!--#include virtual="include/spacer.html" -->
 
-    Je�li masz prawo dost�pu do ��danego dokumentu, sprad�
-    podan� nazw� u�ytkownika i has�o.
+    Om du har tillatelse til å besøke siden, vennligst kontroler ditt
+    brukernavn og passord og forsøk igjen.
+
+<!--#include virtual="include/bottom.html" -->
+----------nb--
+
+
+Content-language: pl
+Content-type: text/html; charset=UTF-8
+Body:----------pl--
+<!--#set var="CONTENT_LANGUAGE" value="pl"
+--><!--#set var="TITLE" value="Wymagana autoryzacja!"
+--><!--#include virtual="include/top.html" -->
+
+    Serwer nie mo&#380;e zweryfikowa&#263;, &#380;e masz uprawnienia dost&#281;pu do
+    URL-a "<!--#echo encoding="url" var="REDIRECT_URL" -->".
+    Nie poda&#322;e&#347; prawid&#322;owych danych autoryzacyjnych (np. has&#322;a)
+    lub twoja przegl&#261;darka nie potrafi ich przes&#322;a&#263;.
+
+  <!--#include virtual="include/spacer.html" -->
+
+    Je&#347;li masz prawo dost&#281;pu do &#380;&#261;danego dokumentu, sprawd&#378;
+    podan&#261; nazw&#281; u&#380;ytkownika i has&#322;o.
 
 <!--#include virtual="include/bottom.html" -->
 ----------pl--
 
 Content-language: pt-br
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:-------pt-br--
 <!--#set var="CONTENT_LANGUAGE" value="pt-br"
 --><!--#set var="TITLE" value="Autentica&ccedil;&atilde;o Requerida!"
@@ -255,8 +270,28 @@ Body:-------pt-br--
 <!--#include virtual="include/bottom.html" -->
 -------pt-br--
 
-Content-language: ro
+Content-language: pt
 Content-type: text/html; charset=ISO-8859-1
+Body:----------pt--
+<!--#set var="TITLE" value="Autentica&ccedil;&atilde;o exigida!"
+--><!--#include virtual="include/top.html" -->
+
+	Este servidor n&atilde;o conseguiu validar a sua autoridade para aceder
+	ao URL "<!--#echo encoding="url" var="REDIRECT_URL" -->".
+	Ou forneceu as credenciais erradas (e.g.: senha incorrecta)
+	ou o seu <i>browser</i> n&atilde;o sabe como fornecer as credenciais
+	necess&aacute;rias.
+
+  <!--#include virtual="include/spacer.html" -->
+
+	Caso lhe seja permitido aceder ao documento, por favor verifique o
+	seu nome de utilizador e senha e tente de novo.
+
+<!--#include virtual="include/bottom.html" -->
+----------pt--
+
+Content-language: ro
+Content-type: text/html; charset=UTF-8
 Body:----------ro--
 <!--#set var="CONTENT_LANGUAGE" value="ro"
 --><!--#set var="TITLE" value="Autentificare necesara!"
@@ -275,29 +310,47 @@ Body:----------ro--
 <!--#include virtual="include/bottom.html" -->
 ----------ro--
 
-Content-language: sr
-Content-type: text/html; charset=ISO-8859-5
-Body:----------sr--
-<!--#set var="CONTENT_LANGUAGE" value="sr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-5"
---><!--#set var="TITLE" value="�������� ���������������!"
+Content-language: ru
+Content-type: text/html; charset=UTF-8
+Body:----------ru--
+<!--#set var="TITLE" value="Необходима аутентификация!"
 --><!--#include virtual="include/top.html" -->
 
-    ���� ������ ���� ����� �� ������� �� ��� ��������� �� ����������
-    ���-� "<!--#echo encoding="url" var="REDIRECT_URL" -->".
-    ������ �� ��� �� ��� ������ �������� ����� ������� (���. ������� �������), ��� ��
-    ��� ����� �� ������ ���� �� ������ ��������� ����� �������.
+    Сервер не смог проверить данные аутентификации
+    на доступ к "<!--#echo encoding="url" var="REDIRECT_URL" -->".
+    Вы предоставили неверные учётные данные (например: пароль), или Ваш
+    браузер не знает, как их предоставить.
 
   <!--#include virtual="include/spacer.html" -->
 
-    ������� ��� �� ��������� �� ���������� ��������, ������ ��
-    ��������� ����� ���������� ��� � ������� � ������� ������.
+    Если Вам разрешено запрашивать данный документ, пожалуйста,
+    проверьте свои учётные данные и повторите запрос.
+
+<!--#include virtual="include/bottom.html" -->
+----------ru--
+
+Content-language: sr
+Content-type: text/html; charset=UTF-8
+Body:----------sr--
+<!--#set var="CONTENT_LANGUAGE" value="sr"
+--><!--#set var="TITLE" value="Обавезна аутентификација!"
+--><!--#include virtual="include/top.html" -->
+
+    Овај сервер није могао да потврди да сте овлашћени да приступите
+    УРЛ-у "<!--#echo encoding="url" var="REDIRECT_URL" -->".
+    Могуће је или да сте навели погрешне личне податке (нпр. нетачну лозинку), или да
+    ваш читач не разуме како да пошаље захтеване личне податке.
+
+  <!--#include virtual="include/spacer.html" -->
+
+    Уколико вам је дозвољено да преузимате документ, молимо да
+    проверите своје корисничко име и лозинку и пробате поново.
 
 <!--#include virtual="include/bottom.html" -->
 ----------sr--
 
 Content-language: sv
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------sv--
 <!--#set var="CONTENT_LANGUAGE" value="sv"
 --><!--#set var="TITLE" value="Autentisering kr&auml;vs!"
@@ -317,21 +370,54 @@ Body:----------sv--
 ----------sv--
 
 Content-language: tr
-Content-type: text/html; charset=ISO-8859-9
+Content-type: text/html; charset=UTF-8
 Body:----------tr--
 <!--#set var="CONTENT_LANGUAGE" value="tr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-9"
---><!--#set var="TITLE" value="Authentication required!"
+--><!--#set var="TITLE" value="Kimlik doğrulama gerekli!"
 --><!--#include virtual="include/top.html" -->
 
-    Sunucu bu dok�mana eri&#351;im izninizi do&#287;rulayamad&#305;.
-    Ya kimli&#287;iniz do&#287;rulanamad&#305; (�rne&#287;in hatal&#305; parola girdiniz),
-    ya da gezgininiz bu i&#351;lemi yerine getiremiyor.
+    Sunucu "<!--#echo encoding="url" var="REDIRECT_URL" -->" adresine erişim
+    izninizi doğrulayamadı. Ya sağladığınız kanıtlar yanlış (yanlış parola gibi)
+    ya da tarayıcınız bu kanıtların nasıl sağlanacağını bilmiyor.
 
   <!--#include virtual="include/spacer.html" -->
 
-    E&#287;er bu dok�mana eri&#351;me izniniz varsa, l�tfen kimli&#287;inizi
-    ve parolan&#305;z&#305; kontrol edip, tekrar deneyin.
+    Eğer erişim izniniz olduğuna eminseniz, lütfen kullanıcı adınızı
+    ve parolanızı gözden geçirip yeniden deneyin.
 
 <!--#include virtual="include/bottom.html" -->
 ----------tr--
+
+Content-language: zh-cn
+Content-type: text/html; charset=UTF-8
+Body:----------zh-cn--
+<!--#set var="CONTENT_LANGUAGE" value="zh-cn"
+--><!--#set var="TITLE" value="需要认证！"
+--><!--#include virtual="include/top.html" -->
+
+    此服务器无法验证您是否有权访问 URL "<!--#echo encoding="url" var="REDIRECT_URL" -->"。
+    原因可能是您提供了错误的凭据（例如，错误的密码），或您的浏览器不知道如何提供所需的凭据。
+
+  <!--#include virtual="include/spacer.html" -->
+
+    如果您有权访问该文档，请检查您的用户名和密码并重试。
+
+<!--#include virtual="include/bottom.html" -->
+----------zh-cn--
+
+Content-language: zh-tw
+Content-type: text/html; charset=UTF-8
+Body:----------zh-tw--
+<!--#set var="CONTENT_LANGUAGE" value="zh-tw"
+--><!--#set var="TITLE" value="需要認證！"
+--><!--#include virtual="include/top.html" -->
+
+    此伺服器無法驗證您是否有權訪問 URL "<!--#echo encoding="url" var="REDIRECT_URL" -->"。
+    原因可能是您提供了錯誤的憑據（例如，錯誤的密碼），或您的瀏覽器不知道如何提供所需的憑據。
+
+  <!--#include virtual="include/spacer.html" -->
+
+    如果您有權訪問該文檔，請檢查您的使用者名和密碼並重試。
+
+<!--#include virtual="include/bottom.html" -->
+----------zh-tw--

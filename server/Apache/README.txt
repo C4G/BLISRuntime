@@ -16,15 +16,15 @@
   ------------------
 
   Details of the latest version can be found on the Apache HTTP
-  server project page under <http://httpd.apache.org/>.
+  server project page under https://httpd.apache.org/.
 
   Documentation
   -------------
 
   The documentation available as of the date of this release is
   included in HTML format in the docs/manual/ directory.  The most
-  up-to-date documentation for the 2.2.x releases can be found at
-  <http://httpd.apache.org/docs/2.2/>.
+  up-to-date documentation can be found at
+  https://httpd.apache.org/docs/2.4/.
 
   Installation
   ------------
@@ -46,7 +46,7 @@
   to another country, of encryption software.  BEFORE using any encryption
   software, please check your country's laws, regulations and policies
   concerning the import, possession, or use, and re-export of encryption
-  software, to see if this is permitted.  See <http://www.wassenaar.org/>
+  software, to see if this is permitted.  See <https://www.wassenaar.org/>
   for more information.
 
   The U.S. Government Department of Commerce, Bureau of Industry and
@@ -70,16 +70,19 @@
     SSL facilities.
 
     In addition, some versions of apr-util provide an abstract interface
-    for SSL encrypted network sockets in the files under the directory
-       srclib/apr-util/ssl/
-    that makes use of a general-purpose encryption library, such as
-    OpenSSL or the operating system's platform-specific SSL facilities.
-    Apache httpd currently does not use that apr-util interface.
+    for symmetrical cryptographic functions that make use of a
+    general-purpose encryption library, such as OpenSSL, NSS, or the
+    operating system's platform-specific facilities. This interface is
+    known as the apr_crypto interface, with implementation beneath the
+    /crypto directory. The apr_crypto interface is used by the
+    mod_session_crypto module available under
+      modules/session
+    for optional encryption of session information.
 
     Some object code distributions of Apache httpd, indicated with the
     word "crypto" in the package name, may include object code for the
     OpenSSL encryption library as distributed in open source form from
-    <http://www.openssl.org/source/>.
+    <https://www.openssl.org/source/>.
 
   The above files are optional and may be removed if the cryptographic
   functionality is not desired or needs to be excluded from redistribution.
@@ -93,48 +96,15 @@
      o If you want to be informed about new code releases, bug fixes,
        security fixes, general news and information about the Apache server
        subscribe to the apache-announce mailing list as described under
-       <http://httpd.apache.org/lists.html#http-announce>
+       <https://httpd.apache.org/lists.html#http-announce>
 
-     o If you want freely available support for running Apache please join the
-       Apache user community by subscribing to Users Mailing List at
-       <http://httpd.apache.org/userslist.html> or one of the following
-       USENET newsgroups:
-         comp.infosystems.www.servers.unix
-         comp.infosystems.www.servers.ms-windows
-       Also available at: 
-         <http://groups.google.com/groups?group=comp.infosystems.www.servers>
+     o If you want freely available support for running Apache please see the
+       resources at <https://httpd.apache.org/support.html>
 
-     o If you want commercial support for running Apache please contact
-       one of the companies and contractors which are listed at
-       <http://www.apache.org/info/support.cgi>
-
-     o If you have a concrete bug report for Apache please go to the
-       Apache Group Bug Database and submit your report:
-       <http://httpd.apache.org/bug_report.html>
+     o If you have a concrete bug report for Apache please see the instructions
+       for bug reporting at <https://httpd.apache.org/bug_report.html>
 
      o If you want to participate in actively developing Apache please
        subscribe to the `dev@httpd.apache.org' mailing list as described at
-       <http://httpd.apache.org/lists.html#http-dev>
+       <https://httpd.apache.org/lists.html#http-dev>
 
-  Acknowledgments
-  ----------------
-
-  We wish to acknowledge the following copyrighted works that
-  make up portions of the Apache software:
-
-  Portions of this software were developed at the National Center
-  for Supercomputing Applications (NCSA) at the University of
-  Illinois at Urbana-Champaign.
-
-  This software contains code derived from the RSA Data Security
-  Inc. MD5 Message-Digest Algorithm, including various
-  modifications by Spyglass Inc., Carnegie Mellon University, and
-  Bell Communications Research, Inc (Bellcore).
-
-  Regular expression support is provided by the PCRE library package, which
-  is open source software, written by Philip Hazel, and copyright by the
-  University of Cambridge, England.  The original software is available from
-     ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
-
-  Apache 2 relies heavily on the use of autoconf and libtool to provide
-  a build environment.

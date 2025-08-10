@@ -1,15 +1,14 @@
 Content-language: cs
-Content-type: text/html; charset=ISO-8859-2
+Content-type: text/html; charset=UTF-8
 Body:----------cs--
 <!--#set var="CONTENT_LANGUAGE" value="cs"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
---><!--#set var="TITLE" value="Chybn� br�na!"
+--><!--#set var="TITLE" value="Chybná brána!"
 --><!--#include virtual="include/top.html" -->
 
-    Proxy server obdr�el od nad�azen�ho
-    serveru chybnou odpov��.
+    Proxy server obdržel od nadřazeného
+    serveru chybnou odpověď.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -18,7 +17,7 @@ Body:----------cs--
 ----------cs--
 
 Content-language: de
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------de--
 <!--#set var="CONTENT_LANGUAGE" value="de"
 --><!--#set var="TITLE" value="Fehlerhaftes Gateway!"
@@ -27,7 +26,7 @@ Body:----------de--
     Der Proxy-Server erhielt eine fehlerhafte Antwort
     eines &uuml;bergeordneten Servers oder Proxies. 
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -36,7 +35,7 @@ Body:----------de--
 ----------de--
 
 Content-language: en
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------en--
 <!--#set var="TITLE" value="Bad Gateway!"
 --><!--#include virtual="include/top.html" -->
@@ -44,7 +43,7 @@ Body:----------en--
     The proxy server received an invalid
     response from an upstream server.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -53,25 +52,26 @@ Body:----------en--
 ----------en--
 
 Content-language: es
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html
 Body:----------es--
-<!--#set var="CONTENT_LANGUAGE" value="es"
---><!--#set var="TITLE" value="&iexcl;Puerta de enlace err&oacute;nea!"
---><!--#include virtual="include/top.html" -->
+<!--#set var="TITLE" value="&iexcl;Puerta de enlace err&oacute;nea!" -->
+<!--#include virtual="include/top.html" -->
 
-	El servidor origen recibi&oacute; informaci&oacute;n 
-	inv&aacute;lida por parte del servidor destino.
+    El servidor 'proxy' ha recibido; informaci&oacute;n
+    no v&aacute;lida del servidor de origen.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
-    <!--#include virtual="include/spacer.html" -->
-    <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
-  <!--#endif -->
-    
+   <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
+
+      <!--#include virtual="include/spacer.html" -->
+      <!--#echo var="REDIRECT_ERROR_NOTES" -->
+
+   <!--#endif -->
+
 <!--#include virtual="include/bottom.html" -->
 ----------es--
 
 Content-language: fr
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------fr--
 <!--#set var="CONTENT_LANGUAGE" value="fr"
 --><!--#set var="TITLE" value="Gateway incorrecte!"
@@ -80,7 +80,7 @@ Body:----------fr--
     Le serveur proxy a re&ccedil;u une r&eacute;ponse
     incorrecte de la part d'un serveur sup&eacute;rieur. 
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -89,7 +89,7 @@ Body:----------fr--
 ----------fr--
 
 Content-language: ga
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------ga--
 <!--#set var="CONTENT_LANGUAGE" value="ga"
 --><!--#set var="TITLE" value="Geata m&iacute;ceart!"
@@ -98,7 +98,7 @@ Body:----------ga--
     Fuair an seachfhreastala&iacute; freagairt neamhbhail&iacute;
     &oacute; freastala&iacute; thuasthrutha.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -107,7 +107,7 @@ Body:----------ga--
 ----------ga--
 
 Content-language: it
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------it--
 <!--#set var="CONTENT_LANGUAGE" value="it"
 --><!--#set var="TITLE" value="Gateway errato!"
@@ -116,7 +116,7 @@ Body:----------it--
     Il server proxy ha ricevuto una risposta
     non valida dal server precedente.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -125,16 +125,15 @@ Body:----------it--
 ----------it--
 
 Content-language: ja
-Content-type: text/html; charset=ISO-2022-JP
+Content-type: text/html; charset=UTF-8
 Body:----------ja--
 <!--#set var="CONTENT_LANGUAGE" value="ja"
---><!--#set var="CHARACTER_ENCODING" value="iso-2022-jp"
 --><!--#set var="TITLE" value="Bad Gateway!"
 --><!--#include virtual="include/top.html" -->
 
-    $B%W%m%/%7%5!<%P$O>eN.%5!<%P$+$iIT@5$J1~Ez$r<u?.$7$^$7$?!#(B
+    プロクシサーバは上流サーバから不正な応答を受信しました。
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -143,16 +142,15 @@ Body:----------ja--
 ----------ja--
 
 Content-language: ko
-Content-type: text/html; charset=EUC-KR
+Content-type: text/html; charset=UTF-8
 Body:----------ko--
 <!--#set var="CONTENT_LANGUAGE" value="ko"
---><!--#set var="TITLE" value="�߸��� ����Ʈ����!"
---><!--#set var="CHARACTER_ENCODING" value="EUC-KR"
+--><!--#set var="TITLE" value="잘못된 게이트웨이!"
 --><!--#include virtual="include/top.html" -->
 
-    ���Ͻ� ������ �� ������ �����κ��� �߸��� ������ �޾ҽ��ϴ�.
+    프록시 서버가 더 윗쪽의 서버로부터 잘못된 응답을 받았습니다.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo  encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -161,7 +159,7 @@ Body:----------ko--
 ----------ko--
 
 Content-language: nl
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------nl--
 <!--#set var="CONTENT_LANGUAGE" value="nl"
 --><!--#set var="TITLE" value="Verkeerde Gateway!"
@@ -170,7 +168,7 @@ Body:----------nl--
     De proxy server heeft een ongeldig
     antwoord ontvangen van een gecontacteerde server.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -178,18 +176,35 @@ Body:----------nl--
 <!--#include virtual="include/bottom.html" -->
 ----------nl--
 
-Content-language: pl
-Content-type: text/html; charset=ISO-8859-2
-Body:----------pl--
-<!--#set var="CONTENT_LANGUAGE" value="pl"
---><!--#set var="TITLE" value="Nieprawid�owa brama!"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
+Content-language: nb
+Content-type: text/html; charset=UTF-8
+Body:----------nb--
+<!--#set var="CONTENT_LANGUAGE" value="nb"
+--><!--#set var="TITLE" value="Ugyldig Gateway!"
 --><!--#include virtual="include/top.html" -->
 
-    Serwer otrzyma� nieprawid�ow� odpowied�
+    Proxyserveren mottok et ugyldig svar fra
+    en oppstrøms server.
+
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
+    <!--#include virtual="include/spacer.html" -->
+    <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
+  <!--#endif -->
+
+<!--#include virtual="include/bottom.html" -->   
+----------nb--
+
+Content-language: pl
+Content-type: text/html; charset=UTF-8
+Body:----------pl--
+<!--#set var="CONTENT_LANGUAGE" value="pl"
+--><!--#set var="TITLE" value="Nieprawid&#322;owa brama!"
+--><!--#include virtual="include/top.html" -->
+
+    Serwer otrzyma&#322; nieprawid&#322;ow&#261; odpowied&#378;
     od kolejnego serwera.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -198,7 +213,7 @@ Body:----------pl--
 ----------pl--
 
 Content-language: pt-br
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:-------pt-br--
 <!--#set var="CONTENT_LANGUAGE" value="pt-br"
 --><!--#set var="TITLE" value="Gateway inv&aacute;lido!"
@@ -207,7 +222,7 @@ Body:-------pt-br--
     O servidor proxy recebeu uma resposta
     inv&aacute;lida do servidor destino.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo  encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -215,8 +230,25 @@ Body:-------pt-br--
 <!--#include virtual="include/bottom.html" -->
 -------pt-br--
 
-Content-language: ro
+Content-language: pt
 Content-type: text/html; charset=ISO-8859-1
+Body:----------pt--
+<!--#set var="TITLE" value="Gateway inv&aacute;lida!"
+--><!--#include virtual="include/top.html" -->
+
+	O servidor de <i>proxy</i> recebeu uma resposta
+	inválida de um outro servidor externo a ele.
+
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
+    <!--#include virtual="include/spacer.html" -->
+    <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
+  <!--#endif -->
+
+<!--#include virtual="include/bottom.html" -->
+----------pt--
+
+Content-language: ro
+Content-type: text/html; charset=UTF-8
 Body:----------ro--
 <!--#set var="CONTENT_LANGUAGE" value="ro"
 --><!--#set var="TITLE" value="Gateway invalid!"
@@ -225,7 +257,7 @@ Body:----------ro--
     Serverul proxy a primit un raspuns invalid
     de la serverul precedent.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -233,18 +265,34 @@ Body:----------ro--
 <!--#include virtual="include/bottom.html" -->
 ----------ro--
 
-Content-language: sr
-Content-type: text/html; charset=ISO-8859-5
-Body:----------sr--
-<!--#set var="CONTENT_LANGUAGE" value="sr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-5"
---><!--#set var="TITLE" value="��� ������!"
+Content-language: ru
+Content-type: text/html; charset=UTF-8
+Body:----------ru--
+<!--#set var="TITLE" value="Неверный шлюз!"
 --><!--#include virtual="include/top.html" -->
 
-    ����������� ������ �� ������ ����������
-    ������� �� �������� ������� � ����.
+    Прокси-сервер получил недопустимый ответ от
+    вышестоящего сервера.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
+    <!--#include virtual="include/spacer.html" -->
+    <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
+  <!--#endif -->
+
+<!--#include virtual="include/bottom.html" -->
+----------ru--
+
+Content-language: sr
+Content-type: text/html; charset=UTF-8
+Body:----------sr--
+<!--#set var="CONTENT_LANGUAGE" value="sr"
+--><!--#set var="TITLE" value="Лош пролаз!"
+--><!--#include virtual="include/top.html" -->
+
+    Посреднички сервер је примио неисправан
+    одговор од следећег сервера у низу.
+
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -253,7 +301,7 @@ Body:----------sr--
 ----------sr--
 
 Content-language: sv
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------sv--
 <!--#set var="CONTENT_LANGUAGE" value="sv"
 --><!--#set var="TITLE" value="Felaktig Gateway!"
@@ -262,7 +310,7 @@ Body:----------sv--
     Proxyservern mottog ett felaktigt svar fr&aring;n
     en tidigare server.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
@@ -271,20 +319,53 @@ Body:----------sv--
 ----------sv--
 
 Content-language: tr
-Content-type: text/html; charset=ISO-8859-9
+Content-type: text/html; charset=UTF-8
 Body:----------tr--
 <!--#set var="CONTENT_LANGUAGE" value="tr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-9"
---><!--#set var="TITLE" value="Bad Gateway!"
+--><!--#set var="TITLE" value="Hatalı Ağ Geçidi!"
 --><!--#include virtual="include/top.html" -->
 
-    Vekil (proxy) sunucu �stbirim (upstream) sunucusundan
-    anlams&#305;z bir cevap ald&#305;.
+    Vekil sunucu üstbirim sunucudan
+    anlamsız bir yanıt aldı.
 
-  <!--#if expr="$REDIRECT_ERROR_NOTES" -->
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
     <!--#include virtual="include/spacer.html" -->
     <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
   <!--#endif -->
     
 <!--#include virtual="include/bottom.html" -->
 ----------tr--
+
+Content-language: zh-cn
+Content-type: text/html; charset=UTF-8
+Body:----------zh-cn--
+<!--#set var="CONTENT_LANGUAGE" value="zh-cn"
+--><!--#set var="TITLE" value="错误的网关！"
+--><!--#include virtual="include/top.html" -->
+
+    代理服务器从上游服务器收到了无效的响应。
+
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
+    <!--#include virtual="include/spacer.html" -->
+    <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
+  <!--#endif -->
+    
+<!--#include virtual="include/bottom.html" -->
+----------zh-cn--
+
+Content-language: zh-tw
+Content-type: text/html; charset=UTF-8
+Body:----------zh-tw--
+<!--#set var="CONTENT_LANGUAGE" value="zh-tw"
+--><!--#set var="TITLE" value="閘道器錯誤！"
+--><!--#include virtual="include/top.html" -->
+
+    代理伺服器從上遊伺服器收到了無效的響應。
+
+  <!--#if expr="-n v('REDIRECT_ERROR_NOTES')" -->
+    <!--#include virtual="include/spacer.html" -->
+    <!--#echo encoding="none" var="REDIRECT_ERROR_NOTES" -->
+  <!--#endif -->
+    
+<!--#include virtual="include/bottom.html" -->
+----------zh-tw--
