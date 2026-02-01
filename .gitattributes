@@ -1,3 +1,4 @@
 server/mysql/bin/mysqld.pdb filter=lfs diff=lfs merge=lfs -text
 dbdir/ib_* filter=lfs diff=lfs merge=lfs -text
+dbdir/ibdata* filter=lfs diff=lfs merge=lfs -text
 dbdir/ib_logfile0 filter=lfs diff=lfs merge=lfs -text
