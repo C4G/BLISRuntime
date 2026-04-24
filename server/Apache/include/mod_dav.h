@@ -15,7 +15,7 @@
  */
 
 /**
- * @file  mod_dav.h 
+ * @file  mod_dav.h
  * @brief DAV extension module for Apache 2.0.*
  *
  * @defgroup MOD_DAV mod_dav
@@ -50,7 +50,7 @@ extern "C" {
 
 #define DAV_READ_BLOCKSIZE      2048    /* used for reading input blocks */
 
-#define DAV_RESPONSE_BODY_1     "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>"
+#define DAV_RESPONSE_BODY_1	"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n<head>\n<title>"
 #define DAV_RESPONSE_BODY_2     "</title>\n</head><body>\n<h1>"
 #define DAV_RESPONSE_BODY_3     "</h1>\n<p>"
 #define DAV_RESPONSE_BODY_4     "</p>\n"
@@ -78,7 +78,7 @@ extern "C" {
 
 #define DAV_INFINITY    INT_MAX    /* for the Depth: header */
 
-/* Create a set of DAV_DECLARE(type), DAV_DECLARE_NONSTD(type) and 
+/* Create a set of DAV_DECLARE(type), DAV_DECLARE_NONSTD(type) and
  * DAV_DECLARE_DATA with appropriate export and import tags for the platform
  */
 #if !defined(WIN32)
@@ -123,12 +123,14 @@ typedef struct dav_error {
     int error_id;               /* DAV-specific error ID */
     const char *desc;           /* DAV:responsedescription and error log */
 
-    int save_errno;             /* copy of errno causing the error */
+    apr_status_t aprerr;        /* APR error if any, or 0/APR_SUCCESS */
 
     const char *namespace;      /* [optional] namespace of error */
     const char *tagname;        /* name of error-tag */
 
     struct dav_error *prev;     /* previous error (in stack) */
+
+    const char *childtags;      /* error-tag may have children */
 
 } dav_error;
 
@@ -136,17 +138,18 @@ typedef struct dav_error {
 ** Create a new error structure. save_errno will be filled with the current
 ** errno value.
 */
-DAV_DECLARE(dav_error*) dav_new_error(apr_pool_t *p, int status, 
-                                      int error_id, const char *desc);
+DAV_DECLARE(dav_error*) dav_new_error(apr_pool_t *p, int status,
+                                      int error_id, apr_status_t aprerr,
+                                      const char *desc);
 
 
 /*
 ** Create a new error structure with tagname and (optional) namespace;
-** namespace may be NULL, which means "DAV:". save_errno will be
-** filled with the current errno value.
+** namespace may be NULL, which means "DAV:".
 */
-DAV_DECLARE(dav_error*) dav_new_error_tag(apr_pool_t *p, int status, 
-                                          int error_id, const char *desc,
+DAV_DECLARE(dav_error*) dav_new_error_tag(apr_pool_t *p, int status,
+                                          int error_id, apr_status_t aprerr,
+                                          const char *desc,
                                           const char *namespace,
                                           const char *tagname);
 
@@ -167,6 +170,38 @@ DAV_DECLARE(dav_error*) dav_new_error_tag(apr_pool_t *p, int status,
 DAV_DECLARE(dav_error*) dav_push_error(apr_pool_t *p, int status, int error_id,
                                        const char *desc, dav_error *prev);
 
+
+/*
+** Join two errors together.
+**
+** This function is used to add a new error stack onto an existing error so
+** that subsequent errors can be reported after the first error.  It returns
+** the correct error stack to use so that the caller can blindly call it
+** without checking that both dest and src are not NULL.
+** 
+** <dest> is the error stack that the error will be added to.
+**
+** <src> is the error stack that will be appended.
+*/
+DAV_DECLARE(dav_error*) dav_join_error(dav_error* dest, dav_error* src);
+
+typedef struct dav_response dav_response;
+
+/*
+** dav_handle_err()
+**
+** Handle the standard error processing. <err> must be non-NULL.
+**
+** <response> is set by the following:
+**   - dav_validate_request()
+**   - dav_add_lock()
+**   - repos_hooks->remove_resource
+**   - repos_hooks->move_resource
+**   - repos_hooks->copy_resource
+**   - vsn_hooks->update
+*/
+DAV_DECLARE(int) dav_handle_err(request_rec *r, dav_error *err,
+                                dav_response *response);
 
 /* error ID values... */
 
@@ -370,7 +405,9 @@ typedef struct dav_resource {
                          * REGULAR and WORKSPACE resources,
                          * and is always 1 for WORKING */
 
-    const char *uri;    /* the URI for this resource */
+    const char *uri;    /* the URI for this resource;
+                         * currently has an ABI flaw where sometimes it is
+                         * assumed to be encoded and sometimes not */
 
     dav_resource_private *info;         /* the provider's private info */
 
@@ -390,6 +427,14 @@ typedef struct dav_resource {
 */
 typedef struct dav_locktoken dav_locktoken;
 
+DAV_DECLARE(dav_error *) dav_get_resource(request_rec *r, int label_allowed,
+                                          int use_checked_in, dav_resource **res_p);
+
+/*
+** If DavBasePath is configured for the request location, return the
+** configured path, otherwise NULL.
+*/
+DAV_DECLARE(const char *) dav_get_base_path(request_rec *r);
 
 /* --------------------------------------------------------------------
 **
@@ -400,7 +445,7 @@ typedef struct dav_locktoken dav_locktoken;
 ** the sub-pools are a bit more general and heavyweight than these buffers.
 */
 
-/* buffer for reuse; can grow to accomodate needed size */
+/* buffer for reuse; can grow to accommodate needed size */
 typedef struct
 {
     apr_size_t alloc_len;       /* how much has been allocated */
@@ -411,28 +456,28 @@ typedef struct
 #define DAV_BUFFER_PAD          64     /* amount of pad when growing */
 
 /* set the cur_len to the given size and ensure space is available */
-DAV_DECLARE(void) dav_set_bufsize(apr_pool_t *p, dav_buffer *pbuf, 
+DAV_DECLARE(void) dav_set_bufsize(apr_pool_t *p, dav_buffer *pbuf,
                                   apr_size_t size);
 
 /* initialize a buffer and copy the specified (null-term'd) string into it */
-DAV_DECLARE(void) dav_buffer_init(apr_pool_t *p, dav_buffer *pbuf, 
+DAV_DECLARE(void) dav_buffer_init(apr_pool_t *p, dav_buffer *pbuf,
                                   const char *str);
 
-/* check that the buffer can accomodate <extra_needed> more bytes */
-DAV_DECLARE(void) dav_check_bufsize(apr_pool_t *p, dav_buffer *pbuf, 
+/* check that the buffer can accommodate <extra_needed> more bytes */
+DAV_DECLARE(void) dav_check_bufsize(apr_pool_t *p, dav_buffer *pbuf,
                                     apr_size_t extra_needed);
 
 /* append a string to the end of the buffer, adjust length */
-DAV_DECLARE(void) dav_buffer_append(apr_pool_t *p, dav_buffer *pbuf, 
+DAV_DECLARE(void) dav_buffer_append(apr_pool_t *p, dav_buffer *pbuf,
                                     const char *str);
 
 /* place a string on the end of the buffer, do NOT adjust length */
-DAV_DECLARE(void) dav_buffer_place(apr_pool_t *p, dav_buffer *pbuf, 
+DAV_DECLARE(void) dav_buffer_place(apr_pool_t *p, dav_buffer *pbuf,
                                    const char *str);
 
 /* place some memory on the end of a buffer; do NOT adjust length */
-DAV_DECLARE(void) dav_buffer_place_mem(apr_pool_t *p, dav_buffer *pbuf, 
-                                       const void *mem, apr_size_t amt, 
+DAV_DECLARE(void) dav_buffer_place_mem(apr_pool_t *p, dav_buffer *pbuf,
+                                       const void *mem, apr_size_t amt,
                                        apr_size_t pad);
 
 
@@ -449,7 +494,7 @@ typedef struct
 } dav_get_props_result;
 
 /* holds the contents of a <response> element */
-typedef struct dav_response
+struct dav_response
 {
     const char *href;           /* always */
     const char *desc;           /* optional description at <response> level */
@@ -460,7 +505,7 @@ typedef struct dav_response
     int status;
 
     struct dav_response *next;
-} dav_response;
+};
 
 typedef struct
 {
@@ -497,12 +542,62 @@ typedef enum {
 #define DAV_STYLE_RFC822        2
 #define DAV_TIMEBUF_SIZE        30
 
+/* Write a complete RESPONSE object out as a <DAV:response> xml
+ * element.  Data is sent into brigade BB, which is auto-flushed into
+ * the output filter stack for request R.  Use POOL for any temporary
+ * allocations.
+ *
+ * [Presumably the <multistatus> tag has already been written;  this
+ * routine is shared by dav_send_multistatus and dav_stream_response.]
+ */
+DAV_DECLARE(void) dav_send_one_response(dav_response *response,
+                                        apr_bucket_brigade *bb,
+                                        request_rec *r,
+                                        apr_pool_t *pool);
+
+/* Factorized helper function: prep request_rec R for a multistatus
+ * response and write <multistatus> tag into BB, destined for
+ * R->output_filters.  Use xml NAMESPACES in initial tag, if
+ * non-NULL.
+ */
+DAV_DECLARE(void) dav_begin_multistatus(apr_bucket_brigade *bb,
+                                        request_rec *r, int status,
+                                        apr_array_header_t *namespaces);
+
+/* Finish a multistatus response started by dav_begin_multistatus: */
+DAV_DECLARE(apr_status_t) dav_finish_multistatus(request_rec *r,
+                                                 apr_bucket_brigade *bb);
+
+/* Send a multistatus response */
+DAV_DECLARE(void) dav_send_multistatus(request_rec *r, int status,
+                                       dav_response *first,
+                                       apr_array_header_t *namespaces);
+
+DAV_DECLARE(apr_text *) dav_failed_proppatch(apr_pool_t *p,
+                                             apr_array_header_t *prop_ctx);
+DAV_DECLARE(apr_text *) dav_success_proppatch(apr_pool_t *p,
+                                              apr_array_header_t *prop_ctx);
+
 DAV_DECLARE(int) dav_get_depth(request_rec *r, int def_depth);
 
 DAV_DECLARE(int) dav_validate_root(const apr_xml_doc *doc,
                                    const char *tagname);
+DAV_DECLARE(int) dav_validate_root_ns(const apr_xml_doc *doc,
+                                      int ns, const char *tagname);
 DAV_DECLARE(apr_xml_elem *) dav_find_child(const apr_xml_elem *elem,
                                            const char *tagname);
+DAV_DECLARE(apr_xml_elem *) dav_find_child_ns(const apr_xml_elem *elem,
+                                              int ns, const char *tagname);
+DAV_DECLARE(apr_xml_elem *) dav_find_next_ns(const apr_xml_elem *elem,
+                                             int ns, const char *tagname);
+
+/* find and return the attribute with a name in the given namespace */
+DAV_DECLARE(apr_xml_attr *) dav_find_attr_ns(const apr_xml_elem *elem,
+                                             int ns, const char *attrname);
+
+/* find and return the attribute with a given DAV: tagname */
+DAV_DECLARE(apr_xml_attr *) dav_find_attr(const apr_xml_elem *elem,
+                                          const char *attrname);
 
 /* gather up all the CDATA into a single string */
 DAV_DECLARE(const char *) dav_xml_get_cdata(const apr_xml_elem *elem, apr_pool_t *pool,
@@ -571,10 +666,10 @@ DAV_DECLARE(void) dav_xmlns_generate(dav_xmlns_info *xi,
 ** mod_dav 1.0). There are too many dependencies between a dav_resource
 ** (defined by <repos>) and the other functionality.
 **
-** Live properties are not part of the dav_provider structure because they
-** are handled through the APR_HOOK interface (to allow for multiple liveprop
-** providers). The core always provides some properties, and then a given
-** provider will add more properties.
+** Live properties and report extensions are not part of the dav_provider
+** structure because they are handled through the APR_HOOK interface (to
+** allow for multiple providers). The core always provides some
+** properties, and then a given provider will add more properties.
 **
 ** Some providers may need to associate a context with the dav_provider
 ** structure -- the ctx field is available for storing this context. Just
@@ -604,7 +699,7 @@ typedef struct {
 **
 ** (of course, use your own domain to ensure a unique value)
 */
-APR_DECLARE_EXTERNAL_HOOK(dav, DAV, void, gather_propsets, 
+APR_DECLARE_EXTERNAL_HOOK(dav, DAV, void, gather_propsets,
                          (apr_array_header_t *uris))
 
 /*
@@ -634,9 +729,71 @@ APR_DECLARE_EXTERNAL_HOOK(dav, DAV, int, find_liveprop,
 ** properties on the specified resource. If a particular liveprop is
 ** not defined for this resource, then it should not be inserted.
 */
-APR_DECLARE_EXTERNAL_HOOK(dav, DAV, void, insert_all_liveprops, 
+APR_DECLARE_EXTERNAL_HOOK(dav, DAV, void, insert_all_liveprops,
                          (request_rec *r, const dav_resource *resource,
                           dav_prop_insert what, apr_text_header *phdr))
+
+/*
+** deliver_report: given a parsed report request, process the request
+**                 an deliver the resulting report.
+**
+** The hook implementer should decide whether it should handle the given
+** report, and if so, write the response to the output filter. If the
+** report is not relevant, return DECLINED.
+*/
+APR_DECLARE_EXTERNAL_HOOK(dav, DAV, int, deliver_report,
+                         (request_rec *r,
+                          const dav_resource *resource,
+                          const apr_xml_doc *doc,
+                          ap_filter_t *output, dav_error **err))
+
+/*
+** gather_reports: get all reports.
+**
+** The hook implementor should push one or more dav_report_elem structures
+** containing report names into the specified array. These names are returned
+** in the DAV:supported-reports-set property to let clients know
+** what reports are supported by the installation.
+**
+*/
+APR_DECLARE_EXTERNAL_HOOK(dav, DAV, void, gather_reports,
+                          (request_rec *r, const dav_resource *resource,
+                           apr_array_header_t *reports, dav_error **err))
+
+/*
+ ** method_precondition: check method preconditions.
+ **
+ ** If a WebDAV extension needs to set any preconditions on a method, this
+ ** hook is where to do it. If the precondition fails, return an error
+ ** response with the tagname set to the value of the failed precondition.
+ **
+ ** If the method requires an XML body, this will be read and provided as
+ ** the doc value. If not, doc is NULL. An extension that needs to verify
+ ** the non-XML body of a request should register an input filter to do so
+ ** within this hook.
+ **
+ ** Methods like PUT will supply a single src resource, and the dst will
+ ** be NULL.
+ **
+ ** Methods like COPY or MOVE will trigger this hook twice. The first
+ ** invocation will supply just the source resource. The second invocation
+ ** will supply a source and destination. This allows preconditions on the
+ ** source resource to be verified before making an attempt to get the
+ ** destination resource.
+ **
+ ** Methods like PROPFIND and LABEL will trigger this hook initially for
+ ** the src resource, and then subsequently for each resource that has
+ ** been walked during processing, with the walked resource passed in dst,
+ ** and NULL passed in src.
+ **
+ ** As a rule, the src resource originates from a request that has passed
+ ** through httpd's authn/authz hooks, while the dst resource has not.
+ */
+APR_DECLARE_EXTERNAL_HOOK(dav, DAV, int, method_precondition,
+                          (request_rec *r,
+                           dav_resource *src, const dav_resource *dst,
+                           const apr_xml_doc *doc, dav_error **err))
+
 
 DAV_DECLARE(const dav_hooks_locks *) dav_get_lock_hooks(request_rec *r);
 DAV_DECLARE(const dav_hooks_propdb *) dav_get_propdb_hooks(request_rec *r);
@@ -647,6 +804,8 @@ DAV_DECLARE(const dav_hooks_search *) dav_get_search_hooks(request_rec *r);
 DAV_DECLARE(void) dav_register_provider(apr_pool_t *p, const char *name,
                                         const dav_provider *hooks);
 DAV_DECLARE(const dav_provider *) dav_lookup_provider(const char *name);
+DAV_DECLARE(const char *) dav_get_provider_name(request_rec *r);
+DAV_DECLARE(const dav_provider *) dav_get_provider(request_rec *r);
 
 
 /* ### deprecated */
@@ -687,7 +846,7 @@ typedef enum
 {
     dav_if_etag,
     dav_if_opaquelock,
-    dav_if_unknown /* the "unknown" state type; always matches false. */   
+    dav_if_unknown /* the "unknown" state type; always matches false. */
 } dav_if_state_type;
 
 typedef struct dav_if_state_list
@@ -714,7 +873,7 @@ typedef struct dav_if_header
     int dummy_header;   /* used internally by the lock/etag validation */
 } dav_if_header;
 
-typedef struct dav_locktoken_list 
+typedef struct dav_locktoken_list
 {
     dav_locktoken *locktoken;
     struct dav_locktoken_list *next;
@@ -746,12 +905,20 @@ struct dav_hooks_liveprop
     **      if the property is defined on the resource, then
     **      a DAV:supported-live-property element, as defined
     **      by the DeltaV extensions to RFC2518.
-    **                      
+    **
     ** Providers should return DAV_PROP_INSERT_NOTDEF if the property is
     ** known and not defined for this resource, so should be handled as a
     ** dead property. If a provider recognizes, but does not support, a
     ** property, and does not want it handled as a dead property, it should
     ** return DAV_PROP_INSERT_NOTSUPP.
+    **
+    ** Some DAV extensions, like CalDAV, specify both document elements
+    ** and property elements that need to be taken into account when
+    ** generating a property. The document element and property element
+    ** are made available in the dav_liveprop_elem structure under the
+    ** resource, accessible as follows:
+    **
+    ** dav_get_liveprop_element(resource);
     **
     ** Returns one of DAV_PROP_INSERT_* based on what happened.
     **
@@ -848,7 +1015,7 @@ struct dav_hooks_liveprop
 **
 ** This structure is used as a standard way to determine if a particular
 ** property is a live property. Its use is not part of the mandated liveprop
-** interface, but can be used by liveprop providers in conjuction with the
+** interface, but can be used by liveprop providers in conjunction with the
 ** utility routines below.
 **
 ** spec->name == NULL is the defined end-sentinel for a list of specs.
@@ -887,7 +1054,7 @@ DAV_DECLARE(long) dav_get_liveprop_info(int propid,
                                         const dav_liveprop_spec **info);
 
 /* ### docco */
-DAV_DECLARE(void) dav_register_liveprop_group(apr_pool_t *pool, 
+DAV_DECLARE(void) dav_register_liveprop_group(apr_pool_t *pool,
                                               const dav_liveprop_group *group);
 
 /* ### docco */
@@ -899,6 +1066,18 @@ DAV_DECLARE(long) dav_get_liveprop_ns_count(void);
 /* ### docco */
 DAV_DECLARE(void) dav_add_all_liveprop_xmlns(apr_pool_t *p,
                                              apr_text_header *phdr);
+
+typedef struct {
+    const apr_xml_doc *doc;
+    const apr_xml_elem *elem;
+} dav_liveprop_elem;
+
+/*
+ ** When calling insert_prop(), the associated request element and
+ ** document is accessible using the following call.
+ */
+DAV_DECLARE(dav_liveprop_elem *) dav_get_liveprop_element(const dav_resource
+                                                          *resource);
 
 /*
 ** The following three functions are part of mod_dav's internal handling
@@ -1083,7 +1262,7 @@ struct dav_hooks_propdb
     dav_error * (*map_namespaces)(dav_db *db,
                                   const apr_array_header_t *namespaces,
                                   dav_namespace_map **mapping);
-    
+
     /*
     ** Store a property value for a given name. The value->combined field
     ** MUST be set for this call.
@@ -1240,8 +1419,12 @@ DAV_DECLARE(const char *)dav_lock_get_activelock(request_rec *r,
                                                  dav_buffer *pbuf);
 
 /* LockDB-related public lock functions */
+DAV_DECLARE(dav_error *) dav_open_lockdb(request_rec *r,
+                                         int ro,
+                                         dav_lockdb **lockdb);
+DAV_DECLARE(void) dav_close_lockdb(dav_lockdb *lockdb);
 DAV_DECLARE(dav_error *) dav_lock_parse_lockinfo(request_rec *r,
-                                                 const dav_resource *resrouce,
+                                                 const dav_resource *resource,
                                                  dav_lockdb *lockdb,
                                                  const apr_xml_doc *doc,
                                                  dav_lock **lock_request);
@@ -1258,7 +1441,7 @@ DAV_DECLARE(dav_error *) dav_notify_created(request_rec *r,
                                             int resource_state,
                                             int depth);
 
-DAV_DECLARE(dav_error*) dav_lock_query(dav_lockdb *lockdb, 
+DAV_DECLARE(dav_error*) dav_lock_query(dav_lockdb *lockdb,
                                        const dav_resource *resource,
                                        dav_lock **locks);
 
@@ -1281,6 +1464,9 @@ DAV_DECLARE(dav_error *) dav_validate_request(request_rec *r,
                                            the 424 DAV:response */
 #define DAV_VALIDATE_USE_424    0x0080  /* return 424 status, not 207 */
 #define DAV_VALIDATE_IS_PARENT  0x0100  /* for internal use */
+#define DAV_VALIDATE_NO_MODIFY  0x0200  /* resource is not being modified
+                                           so allow even if lock token
+                                           is not provided */
 
 /* Lock-null related public lock functions */
 DAV_DECLARE(int) dav_get_resource_state(request_rec *r,
@@ -1504,14 +1690,27 @@ struct dav_hooks_locks
 
 typedef struct dav_propdb dav_propdb;
 
+#define DAV_PROPDB_NONE                  0 
+#define DAV_PROPDB_RO                    1
+#define DAV_PROPDB_DISABLE_LOCKDISCOVERY 2 
 
 DAV_DECLARE(dav_error *) dav_open_propdb(
     request_rec *r,
     dav_lockdb *lockdb,
     const dav_resource *resource,
-    int ro,
+    int flags,
     apr_array_header_t *ns_xlate,
     dav_propdb **propdb);
+
+DAV_DECLARE(dav_error *) dav_popen_propdb(
+    apr_pool_t *p,
+    request_rec *r,
+    dav_lockdb *lockdb,
+    const dav_resource *resource,
+    int flags,
+    apr_array_header_t *ns_xlate,
+    dav_propdb **propdb);
+
 
 DAV_DECLARE(void) dav_close_propdb(dav_propdb *db);
 
@@ -1569,19 +1768,19 @@ typedef struct dav_prop_ctx
 {
     dav_propdb *propdb;
 
+    apr_xml_elem *prop;             /* property to affect */
+
     int operation;
 #define DAV_PROP_OP_SET        1    /* set a property value */
 #define DAV_PROP_OP_DELETE     2    /* delete a prop value */
 /* ### add a GET? */
 
-    apr_xml_elem *prop;             /* property to affect */
-
-    dav_error *err;                 /* error (if any) */
-
     /* private items to the propdb */
     int is_liveprop;
     void *liveprop_ctx;
     struct dav_rollback_item *rollback;  /* optional rollback info */
+
+    dav_error *err;                 /* error (if any) */
 
     /* private to mod_dav.c */
     request_rec *r;
@@ -1629,6 +1828,7 @@ typedef struct
 #define DAV_WALKTYPE_AUTH       0x0001  /* limit to authorized files */
 #define DAV_WALKTYPE_NORMAL     0x0002  /* walk normal files */
 #define DAV_WALKTYPE_LOCKNULL   0x0004  /* walk locknull resources */
+#define DAV_WALKTYPE_TOLERANT   0x0008  /* tolerate non-fatal errors */
 
     /* callback function and a client context for the walk */
     dav_error * (*func)(dav_walk_resource *wres, int calltype);
@@ -1654,7 +1854,7 @@ typedef struct dav_walker_ctx
 
     /* ### client data... phasing out this big glom */
 
-    /* this brigade buffers data being sent to r->output_filters */ 
+    /* this brigade buffers data being sent to r->output_filters */
     apr_bucket_brigade *bb;
 
     /* a scratch pool, used to stream responses and iteratively cleared. */
@@ -1748,7 +1948,7 @@ struct dav_hooks_repository
      *
      * The provider may associate the request storage pool with the resource
      * (in the resource->pool field), to use in other operations on that
-     * resource. 
+     * resource.
      */
     dav_error * (*get_resource)(
         request_rec *r,
@@ -1759,7 +1959,7 @@ struct dav_hooks_repository
     );
 
     /* Get a resource descriptor for the parent of the given resource.
-     * The resources need not exist.  NULL is returned if the resource 
+     * The resources need not exist.  NULL is returned if the resource
      * is the root collection.
      *
      * An error should be returned only if there is a fatal error in
@@ -1940,6 +2140,12 @@ struct dav_hooks_repository
     ** then this field may be used. In most cases, it will just be NULL.
     */
     void *ctx;
+
+    /* Get the request rec for a resource */
+    request_rec * (*get_request_rec)(const dav_resource *resource);
+
+    /* Get the pathname for a resource */
+    const char * (*get_pathname)(const dav_resource *resource);
 };
 
 
@@ -2286,7 +2492,7 @@ struct dav_hooks_vsn
     ** exist. Any <DAV:mkworkspace> element is passed to the provider
     ** in the "doc" structure; it may be empty.
     **
-    ** If workspace creation is succesful, the state of the resource
+    ** If workspace creation is successful, the state of the resource
     ** object is updated appropriately.
     **
     ** This hook is optional; if the provider does not support workspaces,
@@ -2309,7 +2515,7 @@ struct dav_hooks_vsn
     ** Create an activity resource. The resource must not already
     ** exist.
     **
-    ** If activity creation is succesful, the state of the resource
+    ** If activity creation is successful, the state of the resource
     ** object is updated appropriately.
     **
     ** This hook is optional; if the provider does not support activities,
@@ -2411,13 +2617,55 @@ struct dav_hooks_search {
 ** MISCELLANEOUS STUFF
 */
 
-/* fetch the "LimitXMLRequestBody" in force for this resource */
-DAV_DECLARE(apr_size_t) dav_get_limit_xml_body(const request_rec *r);
-
 typedef struct {
     int propid;                          /* live property ID */
     const dav_hooks_liveprop *provider;  /* the provider defining this prop */
-} dav_elem_private;    
+} dav_elem_private;
+
+/* --------------------------------------------------------------------
+**
+** DAV OPTIONS
+*/
+#define DAV_OPTIONS_EXTENSION_GROUP "dav_options"
+
+typedef struct dav_options_provider
+{
+    dav_error* (*dav_header)(request_rec *r,
+                             const dav_resource *resource,
+                             apr_text_header *phdr);
+
+    dav_error* (*dav_method)(request_rec *r,
+                             const dav_resource *resource,
+                             apr_text_header *phdr);
+
+    void *ctx;
+} dav_options_provider;
+
+extern DAV_DECLARE(const dav_options_provider *) dav_get_options_providers(const char *name);
+
+extern DAV_DECLARE(void) dav_options_provider_register(apr_pool_t *p,
+                               const char *name,
+                               const dav_options_provider *provider);
+
+/* --------------------------------------------------------------------
+**
+** DAV RESOURCE TYPE HOOKS
+*/
+
+typedef struct dav_resource_type_provider
+{
+    int (*get_resource_type)(const dav_resource *resource,
+                  const char **name,
+                  const char **uri);
+} dav_resource_type_provider;
+
+#define DAV_RESOURCE_TYPE_GROUP "dav_resource_type"
+
+DAV_DECLARE(void) dav_resource_type_provider_register(apr_pool_t *p,
+                                        const char *name,
+                                    const dav_resource_type_provider *provider);
+
+DAV_DECLARE(const dav_resource_type_provider *) dav_get_resource_type_providers(const char *name);
 
 #ifdef __cplusplus
 }

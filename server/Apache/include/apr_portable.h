@@ -16,7 +16,7 @@
 
 /* This header file is where you should put ANY platform specific information.
  * This should be the only header file that programs need to include that 
- * actually has platform dependant code which refers to the .
+ * actually has platform dependent code which refers to the .
  */
 #ifndef APR_PORTABLE_H
 #define APR_PORTABLE_H
@@ -45,6 +45,9 @@
 #endif
 #if APR_HAVE_PTHREAD_H
 #include <pthread.h>
+#endif
+#if APR_HAVE_SEMAPHORE_H
+#include <semaphore.h>
 #endif
 
 #ifdef __cplusplus
@@ -140,12 +143,16 @@ struct apr_os_proc_mutex_t {
     pthread_mutex_t *intraproc;
 #endif
 #endif
+#if APR_HAS_POSIXSEM_SERIALIZE
+    /** Value used for POSIX semaphores serialization */
+    sem_t *psem_interproc;
+#endif
 };
 
 typedef int                   apr_os_file_t;        /**< native file */
 typedef DIR                   apr_os_dir_t;         /**< native dir */
 typedef int                   apr_os_sock_t;        /**< native dir */
-typedef struct apr_os_proc_mutex_t  apr_os_proc_mutex_t; /**< native proces
+typedef struct apr_os_proc_mutex_t  apr_os_proc_mutex_t; /**< native process
                                                           *   mutex
                                                           */
 #if APR_HAS_THREADS && APR_HAVE_PTHREAD_H 
@@ -235,18 +242,31 @@ APR_DECLARE(apr_status_t) apr_os_dir_get(apr_os_dir_t **thedir,
 /**
  * Convert the socket from an apr type to an OS specific socket
  * @param thesock The socket to convert.
- * @param sock The os specifc equivelant of the apr socket..
+ * @param sock The os specific equivalent of the apr socket..
  */
 APR_DECLARE(apr_status_t) apr_os_sock_get(apr_os_sock_t *thesock,
                                           apr_socket_t *sock);
 
 /**
- * Convert the proc mutex from os specific type to apr type
+ * Convert the proc mutex from apr type to os specific type
  * @param ospmutex The os specific proc mutex we are converting to.
  * @param pmutex The apr proc mutex to convert.
  */
 APR_DECLARE(apr_status_t) apr_os_proc_mutex_get(apr_os_proc_mutex_t *ospmutex, 
                                                 apr_proc_mutex_t *pmutex);
+
+/**
+ * Convert the proc mutex from apr type to os specific type, also
+ * providing the mechanism used by the apr mutex.
+ * @param ospmutex The os specific proc mutex we are converting to.
+ * @param pmutex The apr proc mutex to convert.
+ * @param mech The mechanism used by the apr proc mutex (if not NULL).
+ * @remark Allows for disambiguation for platforms with multiple mechanisms
+ *         available.
+ */
+APR_DECLARE(apr_status_t) apr_os_proc_mutex_get_ex(apr_os_proc_mutex_t *ospmutex, 
+                                                   apr_proc_mutex_t *pmutex,
+                                                   apr_lockmech_e *mech);
 
 /**
  * Get the exploded time in the platforms native format.
@@ -321,6 +341,7 @@ APR_DECLARE(apr_os_thread_t) apr_os_thread_current(void);
  * Compare two thread id's
  * @param tid1 1st Thread ID to compare
  * @param tid2 2nd Thread ID to compare
+ * @return non-zero if the two threads are equal, zero otherwise
  */ 
 APR_DECLARE(int) apr_os_thread_equal(apr_os_thread_t tid1, 
                                      apr_os_thread_t tid2);
@@ -379,7 +400,10 @@ APR_DECLARE(apr_status_t) apr_os_dir_put(apr_dir_t **dir,
                                          apr_pool_t *cont); 
 
 /**
- * Convert a socket from the os specific type to the apr type
+ * Convert a socket from the os specific type to the APR type. If
+ * sock points to NULL, a socket will be created from the pool
+ * provided. If **sock does not point to NULL, the structure pointed
+ * to by sock will be reused and updated with the given socket.
  * @param sock The pool to use.
  * @param thesock The socket to convert to.
  * @param cont The socket we are converting to an apr type.
@@ -412,6 +436,24 @@ APR_DECLARE(apr_status_t) apr_os_sock_make(apr_socket_t **apr_sock,
  */
 APR_DECLARE(apr_status_t) apr_os_proc_mutex_put(apr_proc_mutex_t **pmutex,
                                                 apr_os_proc_mutex_t *ospmutex,
+                                                apr_pool_t *cont); 
+
+/**
+ * Convert the proc mutex from os specific type to apr type, using the
+ * specified mechanism.
+ * @param pmutex The apr proc mutex we are converting to.
+ * @param ospmutex The os specific proc mutex to convert.
+ * @param mech The apr mutex locking mechanism
+ * @param register_cleanup Whether to destroy the os mutex with the apr
+ *        one (either on explicit destroy or pool cleanup).
+ * @param cont The pool to use if it is needed.
+ * @remark Allows for disambiguation for platforms with multiple mechanisms
+ *         available.
+ */
+APR_DECLARE(apr_status_t) apr_os_proc_mutex_put_ex(apr_proc_mutex_t **pmutex,
+                                                apr_os_proc_mutex_t *ospmutex,
+                                                apr_lockmech_e mech,
+                                                int register_cleanup,
                                                 apr_pool_t *cont); 
 
 /**
@@ -450,7 +492,7 @@ APR_DECLARE(apr_status_t) apr_os_shm_put(apr_shm_t **shm,
 
 #if APR_HAS_DSO || defined(DOXYGEN)
 /** 
- * @defgroup apr_os_dso DSO (Dynamic Loading) Portabiliity Routines
+ * @defgroup apr_os_dso DSO (Dynamic Loading) Portability Routines
  * @{
  */
 /**
@@ -471,6 +513,10 @@ APR_DECLARE(apr_status_t) apr_os_dso_handle_put(apr_dso_handle_t **dso,
 APR_DECLARE(apr_status_t) apr_os_dso_handle_get(apr_os_dso_handle_t *dso,
                                                 apr_dso_handle_t *aprdso);
 
+/** @} */
+#endif /* APR_HAS_DSO */
+
+
 #if APR_HAS_OS_UUID
 /**
  * Private: apr-util's apr_uuid module when supported by the platform
@@ -478,12 +524,9 @@ APR_DECLARE(apr_status_t) apr_os_dso_handle_get(apr_os_dso_handle_t *dso,
 APR_DECLARE(apr_status_t) apr_os_uuid_get(unsigned char *uuid_data);
 #endif
 
-/** @} */
-#endif /* APR_HAS_DSO */
-
 
 /**
- * Get the name of the system default characer set.
+ * Get the name of the system default character set.
  * @param pool the pool to allocate the name from, if needed
  */
 APR_DECLARE(const char*) apr_os_default_encoding(apr_pool_t *pool);
@@ -492,8 +535,8 @@ APR_DECLARE(const char*) apr_os_default_encoding(apr_pool_t *pool);
 /**
  * Get the name of the current locale character set.
  * @param pool the pool to allocate the name from, if needed
- * @remark Defers to apr_os_default_encoding if the current locale's
- * data can't be retreved on this system.
+ * @remark Defers to apr_os_default_encoding() if the current locale's
+ * data can't be retrieved on this system.
  */
 APR_DECLARE(const char*) apr_os_locale_encoding(apr_pool_t *pool);
 

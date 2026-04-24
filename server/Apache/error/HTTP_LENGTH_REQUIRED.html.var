@@ -1,19 +1,18 @@
 Content-language: cs
-Content-type: text/html; charset=ISO-8859-2
+Content-type: text/html; charset=UTF-8
 Body:----------cs--
 <!--#set var="CONTENT_LANGUAGE" value="cs"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
---><!--#set var="TITLE" value="Chybn� hlavi�ka Content-Length!"
+--><!--#set var="TITLE" value="Chybná hlavička Content-Length!"
 --><!--#include virtual="include/top.html" -->
 
-    Po�adavek metodou <!--#echo var="REDIRECT_REQUEST_METHOD" -->
-    vy�aduje korektn� hlavi�ku <code>Content-Length</code>.
+    Požadavek metodou <!--#echo var="REDIRECT_REQUEST_METHOD" -->
+    vyžaduje korektní hlavičku <code>Content-Length</code>.
 
 <!--#include virtual="include/bottom.html" -->
 ----------cs--
 
 Content-language: de
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------de--
 <!--#set var="CONTENT_LANGUAGE" value="de"
 --><!--#set var="TITLE" value="Content-Length-Angabe fehlerhaft!"
@@ -28,7 +27,7 @@ Body:----------de--
 ----------de--
 
 Content-language: en
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------en--
 <!--#set var="TITLE" value="Bad Content-Length!"
 --><!--#include virtual="include/top.html" -->
@@ -40,34 +39,34 @@ Body:----------en--
 ----------en--
 
 Content-language: es
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html
 Body:----------es--
-<!--#set var="CONTENT_LANGUAGE" value="es"
---><!--#set var="TITLE" value="&iexcl;Content-Length err&oacute;neo!"
---><!--#include virtual="include/top.html" -->
+<!--#set var="TITLE" value="&iexcl;Error en la longitud del contenido!" -->
+<!--#include virtual="include/top.html" -->
 
-    Una solicitud con el m&eacute;todo <!--#echo var="REDIRECT_REQUEST_METHOD" --> 
-    necesita una cabecera <code>Content-Length</code> v&aacute;lida.
+    Una petici&oacute;n con el m&eacute;todo <!--#echo
+    var="REDIRECT_REQUEST_METHOD" -->  requiere que el encabezado 
+    <code>Content-Length</code> sea v&aacute;lido.
 
 <!--#include virtual="include/bottom.html" -->
 ----------es--
 
 Content-language: fr
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------fr--
 <!--#set var="CONTENT_LANGUAGE" value="fr"
 --><!--#set var="TITLE" value="Longueur du contenu ill&eacute;gal!"
 --><!--#include virtual="include/top.html" -->
 
     Une requ&ecirc;te utilisant la m&eacute;thode <!--#echo
-    var="REDIRECT_REQUEST_METHOD" --> n&eacute;cessite un header valable
-    <code>Content-Length</code> (indiquant la longueur).
+    var="REDIRECT_REQUEST_METHOD" --> n&eacute;cessite un en-t&ecirc;te
+    <code>Content-Length</code> (indiquant la longueur) valable.
 
 <!--#include virtual="include/bottom.html" -->
 ----------fr--
 
 Content-language: ga
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------ga--
 <!--#set var="TITLE" value="Content-Length m&iacute;cheart!"
 --><!--#include virtual="include/top.html" -->
@@ -82,7 +81,7 @@ Body:----------ga--
 
 
 Content-language: it
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------it--
 <!--#set var="CONTENT_LANGUAGE" value="it"
 --><!--#set var="TITLE" value="Campo Content-Length non valido!"
@@ -97,36 +96,34 @@ Body:----------it--
 ----------it--
 
 Content-language: ja
-Content-type: text/html; charset=ISO-2022-JP
+Content-type: text/html; charset=UTF-8
 Body:----------ja--
 <!--#set var="CONTENT_LANGUAGE" value="ja"
---><!--#set var="CHARACTER_ENCODING" value="iso-2022-jp"
 --><!--#set var="TITLE" value="Bad Content-Length!"
 --><!--#include virtual="include/top.html" -->
 
     <!--#echo var="REDIRECT_REQUEST_METHOD"-->
-    $B%a%=%C%I$N%j%/%(%9%H$G$O!"(B
-    $B@5$7$$(B <code>Content-Length</code> $B%X%C%@$,I,MW$K$J$j$^$9!#(B
+    メソッドのリクエストでは、
+    正しい <code>Content-Length</code> ヘッダが必要になります。
 
 <!--#include virtual="include/bottom.html" -->
 ----------ja--
 
 Content-language: ko
-Content-type: text/html; charset=EUC-KR
+Content-type: text/html; charset=UTF-8
 Body:----------ko--
 <!--#set var="CONTENT_LANGUAGE" value="ko"
---><!--#set var="TITLE" value="�߸��� Content-Length!"
---><!--#set var="CHARACTER_ENCODING" value="EUC-KR"
+--><!--#set var="TITLE" value="잘못된 Content-Length!"
 --><!--#include virtual="include/top.html" -->
 
-    <!--#echo encoding="none" var="REDIRECT_REQUEST_METHOD"--> ����� ����
-    ��û�� �ùٸ� <code>Content-Length</code> ����� �Բ� �����߸� �մϴ�.
+    <!--#echo encoding="none" var="REDIRECT_REQUEST_METHOD"--> 방식을 쓰는
+    요청은 올바른 <code>Content-Length</code> 헤더도 함께 보내야만 합니다.
 
 <!--#include virtual="include/bottom.html" -->
 ----------ko--
 
 Content-language: nl
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------nl--
 <!--#set var="CONTENT_LANGUAGE" value="nl"
 --><!--#set var="TITLE" value="Ongeldige lengte inhoud!"
@@ -138,22 +135,34 @@ Body:----------nl--
 <!--#include virtual="include/bottom.html" -->
 ----------nl--
 
-Content-language: pl
-Content-type: text/html; charset=ISO-8859-2
-Body:----------pl--
-<!--#set var="CONTENT_LANGUAGE" value="pl"
---><!--#set var="TITLE" value="B��dne Content-Length!"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-2"
+Content-language: nb
+Content-type: text/html; charset=UTF-8
+Body:----------nb--
+<!--#set var="CONTENT_LANGUAGE" value="nb"
+--><!--#set var="TITLE" value="Feil Content-Length!"
 --><!--#include virtual="include/top.html" -->
 
-    ��danie <!--#echo var="REDIRECT_REQUEST_METHOD" -->
-    wymaga poprawnego nag��wka <code>Content-Length</code>.
+    En forespørsel med <!--#echo var="REDIRECT_REQUEST_METHOD" -->
+    metoden krever en korrekt <code>Content-Length</code> header.
+
+<!--#include virtual="include/bottom.html" -->
+----------nb--
+
+Content-language: pl
+Content-type: text/html; charset=UTF-8
+Body:----------pl--
+<!--#set var="CONTENT_LANGUAGE" value="pl"
+--><!--#set var="TITLE" value="B&#322;&#281;dne Content-Length!"
+--><!--#include virtual="include/top.html" -->
+
+    &#379;&#261;danie <!--#echo var="REDIRECT_REQUEST_METHOD" -->
+    wymaga poprawnego nag&#322;&#243;wka <code>Content-Length</code>.
 
 <!--#include virtual="include/bottom.html" -->
 ----------pl--
 
 Content-language: pt-br
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:-------pt-br--
 <!--#set var="CONTENT_LANGUAGE" value="pt-br"
 --><!--#set var="TITLE" value="Content-Length Inv&aacute;lido!"
@@ -166,8 +175,20 @@ Body:-------pt-br--
 <!--#include virtual="include/bottom.html" -->
 -------pt-br--
 
-Content-language: ro
+Content-language: pt
 Content-type: text/html; charset=ISO-8859-1
+Body:----------pt--
+<!--#set var="TITLE" value="Content-Length incorrecto!"
+--><!--#include virtual="include/top.html" -->
+
+	Um pedido com o m&eacute;todo <!--#echo var="REDIRECT_REQUEST_METHOD" -->
+	necessita de um cabe&ccedil;alho <code>Content-Length</code> v&aacute;lido.
+
+<!--#include virtual="include/bottom.html" -->
+----------pt--
+
+Content-language: ro
+Content-type: text/html; charset=UTF-8
 Body:----------ro--
 <!--#set var="CONTENT_LANGUAGE" value="ro"
 --><!--#set var="TITLE" value="Content-Length invalid!"
@@ -179,23 +200,34 @@ Body:----------ro--
 <!--#include virtual="include/bottom.html" -->
 ----------ro--
 
-Content-language: sr
-Content-type: text/html; charset=ISO-8859-5
-Body:----------sr--
-<!--#set var="CONTENT_LANGUAGE" value="sr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-5"
---><!--#set var="TITLE" value="���� Content-Length ��������!"
+Content-language: ru
+Content-type: text/html; charset=UTF-8
+Body:----------ru--
+<!--#set var="TITLE" value="Неверная длина Content-Length!"
 --><!--#include virtual="include/top.html" -->
 
-    ������ �� <!--#echo var="REDIRECT_REQUEST_METHOD" -->
-    ������� ���� ����� �������� <code>Content-Length</code>
-    (������ ��������) ��������.
+    Запрос с помощью метода <!--#echo var="REDIRECT_REQUEST_METHOD" -->
+    должен иметь правильное значение длины в поле <code>Content-Length</code>.
+
+<!--#include virtual="include/bottom.html" -->
+----------ru--
+
+Content-language: sr
+Content-type: text/html; charset=UTF-8
+Body:----------sr--
+<!--#set var="CONTENT_LANGUAGE" value="sr"
+--><!--#set var="TITLE" value="Лоше Content-Length заглавље!"
+--><!--#include virtual="include/top.html" -->
+
+    Захтев са <!--#echo var="REDIRECT_REQUEST_METHOD" -->
+    методом мора имати исправно <code>Content-Length</code>
+    (дужина садржаја) заглавље.
 
 <!--#include virtual="include/bottom.html" -->
 ----------sr--
 
 Content-language: sv
-Content-type: text/html; charset=ISO-8859-1
+Content-type: text/html; charset=UTF-8
 Body:----------sv--
 <!--#set var="CONTENT_LANGUAGE" value="sv"
 --><!--#set var="TITLE" value="Felaktig Content-Length!"
@@ -208,15 +240,40 @@ Body:----------sv--
 ----------sv--
 
 Content-language: tr
-Content-type: text/html; charset=ISO-8859-9
+Content-type: text/html; charset=UTF-8
 Body:----------tr--
 <!--#set var="CONTENT_LANGUAGE" value="tr"
---><!--#set var="CHARACTER_ENCODING" value="ISO-8859-9"
---><!--#set var="TITLE" value="Bad Content-Length!"
+--><!--#set var="TITLE" value="Hatalı Content-Length başlığı!"
 --><!--#include virtual="include/top.html" -->
 
-    <!--#echo var="REDIRECT_REQUEST_METHOD" --> metodunu kullanan bir talep
-    ge�erli bir <code>Content-Length</code> (i�erik uzunlu&#287;u) ba&#351;l&#305;&#287;&#305; gerektirir.
+    <!--#echo var="REDIRECT_REQUEST_METHOD" --> yöntemini kullanan bir istek
+    geçerli bir <code>Content-Length</code> (içerik uzunluğu) başlığı gerektirir.
 
 <!--#include virtual="include/bottom.html" -->
 ----------tr--
+
+Content-language: zh-cn
+Content-type: text/html; charset=UTF-8
+Body:----------zh-cn--
+<!--#set var="CONTENT_LANGUAGE" value="zh-cn"
+--><!--#set var="TITLE" value="错误的 Content-Length！"
+--><!--#include virtual="include/top.html" -->
+
+    对 <!--#echo var="REDIRECT_REQUEST_METHOD" --> 方法的请求必须带有有效的
+    <code>Content-Length</code> 头字段。
+
+<!--#include virtual="include/bottom.html" -->
+----------zh-cn--
+
+Content-language: zh-tw
+Content-type: text/html; charset=UTF-8
+Body:----------zh-tw--
+<!--#set var="CONTENT_LANGUAGE" value="zh-tw"
+--><!--#set var="TITLE" value="錯誤的 Content-Length！"
+--><!--#include virtual="include/top.html" -->
+
+    對 <!--#echo var="REDIRECT_REQUEST_METHOD" --> 方法的請求必須帶有有效的
+    <code>Content-Length</code> 頭欄位。
+
+<!--#include virtual="include/bottom.html" -->
+----------zh-tw--
